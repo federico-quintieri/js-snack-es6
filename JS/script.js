@@ -117,3 +117,43 @@ function modificaProprietà(
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+//------- Terzo esercizio -------\\
+
+const arrayTest = [5, 3, 2, 5, 6, 7, 1, 2, 5];
+
+/**
+ * La funziona ritorna un array fatto DA index A index di array ingresso
+ * @param {array} arrayIngresso
+ * @param {number} numeroA
+ * @param {number} numeroB
+ * @returns {array}
+ */
+function copiaArrayDA_A(arrayIngresso, numeroA, numeroB) {
+  const arrayRisultato = [];
+  let cont = 0;
+//   console.log(numeroA, numeroB, arrayIngresso.length);
+
+  if (numeroA < numeroB && arrayIngresso.length > numeroB) {
+    for (let i = 0; i < arrayIngresso.length; i++) {
+      // Valore corrente index array d'ingresso
+      const currIndexValue = arrayIngresso[i];
+
+      // Se l'indice del prima array sta in un certo intervallo copiamo i valori in un'altro array
+      if (i >= numeroA && i <= numeroB) {
+        arrayRisultato[cont] = currIndexValue;
+        cont++;
+
+        console.log(
+          `Ecco l'array che si aggiorna${arrayRisultato}, ecco il numero dell'iterazione: ${i},Da iterazione: ${numeroA},A iterazione:  ${numeroB}`
+        );
+      }
+    }
+  }
+  return arrayRisultato;
+}
+const arrayRisultatoModifica = copiaArrayDA_A(arrayTest, 3, 6);
+
+console.log(`Questo è l'array iniziale: ${arrayTest}`);
+
+console.log(`Questo è l'array modificato: ${arrayRisultatoModifica}`);
