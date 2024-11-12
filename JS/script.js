@@ -44,3 +44,43 @@ function valorePiccolo(arrayOggetti, nomeChiave) {
 //------------------------------\\
 // Secondo esercizio
 
+const arraySquadre = [
+  { "nome squadra": "Roma", "punti fatti": 0, "falli subiti": 0 },
+  { "nome squadra": "Lazio", "punti fatti": 0, "falli subiti": 0 },
+  { "nome squadra": "Inter", "punti fatti": 0, "falli subiti": 0 },
+];
+// Per accedere ad una proprietà settata come stringa dobbiamo usare le parentesi quadre
+// console.log(arraySquadre[0]["falli subiti"]);
+
+// Printo l'array di oggetti prima di modificare le proprietà
+// console.log(arraySquadre);
+
+const arrayResult = [];
+
+// Ciclo l'array
+for (let i = 0; i < arraySquadre.length; i++) {
+  const currObject = arraySquadre[i];
+  // Printo ogni oggetto nell'array
+  //   console.log(currObject);
+
+  // Devo cambiare le proprietà punti fatti e falli subiti
+  currObject["falli subiti"] = getRndInteger(0, 10);
+  currObject["punti fatti"] = getRndInteger(0, 10);
+
+  //   console.log(currObject);
+
+  arrayResult.push(
+    currObject["nome squadra"] + " " + currObject["falli subiti"]
+  );
+}
+
+// Printo l'array di oggetti dopo aver modificato le proprietà
+console.log(arraySquadre);
+
+// Stampiamo l'array che contiene stringhe (Nome squadra + falli subiti)
+console.log(arrayResult);
+
+// Ritorna numero random
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
