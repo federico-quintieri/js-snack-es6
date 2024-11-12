@@ -52,33 +52,66 @@ const arraySquadre = [
 // Per accedere ad una proprietà settata come stringa dobbiamo usare le parentesi quadre
 // console.log(arraySquadre[0]["falli subiti"]);
 
-// Printo l'array di oggetti prima di modificare le proprietà
-// console.log(arraySquadre);
-
 const arrayResult = [];
 
-// Ciclo l'array
-for (let i = 0; i < arraySquadre.length; i++) {
-  const currObject = arraySquadre[i];
-  // Printo ogni oggetto nell'array
-  //   console.log(currObject);
+// Domanda
+// Perché con il console log mi da l'oggetto modificato prima di modificarlo?
 
-  // Devo cambiare le proprietà punti fatti e falli subiti
-  currObject["falli subiti"] = getRndInteger(0, 10);
-  currObject["punti fatti"] = getRndInteger(0, 10);
+// Risposta
+/*
+Quando usi console.log per stampare un oggetto in JavaScript, la console non crea una copia immediata di quell'oggetto al momento della chiamata. 
 
-  //   console.log(currObject);
+Invece, console.log mostra un riferimento all'oggetto in memoria.
 
-  arrayResult.push(
-    currObject["nome squadra"] + " " + currObject["falli subiti"]
-  );
+(LA PAROLA CHIAVE é RIFERIMENTO)
+
+In pratica va per riferimento come aveva detto Loris 
+*/
+
+// Qui faccio una copia effettiva dell'oggetto per controllarlo prima e dopo la modifica
+const arrayOggettiCopia = JSON.parse(JSON.stringify(arraySquadre));
+console.log(
+  "Questo è la copia dell'array degli oggetti prima della modifica ",
+  arrayOggettiCopia
+);
+
+const arrayFinaliOggetti = modificaProprietà(
+  arraySquadre,
+  "punti fatti",
+  "falli subiti"
+);
+
+console.log("Nuovo array oggetti: ", arrayFinaliOggetti);
+
+console.log("Dopo la modifica dell'array originale:", arraySquadre);
+console.log("La copia dell'array rimane invariata:", arrayOggettiCopia);
+
+function modificaProprietà(
+  arrayOggetti,
+  proprietà_1_Oggetto,
+  proprietà_2_Oggetto
+) {
+  // Ciclo l'array
+  for (let i = 0; i < arrayOggetti.length; i++) {
+    const currObject = arrayOggetti[i];
+    // Printo ogni oggetto nell'array
+    //   console.log(currObject);
+
+    // Devo cambiare le proprietà punti fatti e falli subiti
+    currObject[proprietà_1_Oggetto] = getRndInteger(0, 10);
+    currObject[proprietà_2_Oggetto] = getRndInteger(0, 10);
+
+    //   console.log(currObject);
+
+    // Perché non posso passare una variabile stringa come proprietà?
+
+    arrayResult.push({
+      "nome squadra": currObject["nome squadra"],
+      "falli subiti": currObject[proprietà_2_Oggetto],
+    });
+  }
+  return arrayResult;
 }
-
-// Printo l'array di oggetti dopo aver modificato le proprietà
-console.log(arraySquadre);
-
-// Stampiamo l'array che contiene stringhe (Nome squadra + falli subiti)
-console.log(arrayResult);
 
 // Ritorna numero random
 function getRndInteger(min, max) {
